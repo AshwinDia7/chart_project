@@ -1,0 +1,19 @@
+.status_container {
+    height : 100px;
+    width : 290px;
+    background-color: lightgray;
+    border : 1px solid lightcyan;
+    padding : 5px;
+}
+
+.status_heading {
+    text-align: center;
+    font-weight: bold;
+}
+
+.status_body {
+    display : flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    line-height: 6mm;
+}

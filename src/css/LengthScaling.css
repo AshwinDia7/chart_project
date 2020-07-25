@@ -1,0 +1,31 @@
+.length_container {
+    height : 105px;
+    width : 290px;
+    border : 1px solid gray;
+    margin-top: 5px;;
+}
+
+.length_text {
+    padding-right: 120px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn_line1 {
+    display: flex;
+    margin-top: 8px;
+}
+
+.le_sc_button {
+    border : 1px solid gray;
+    background-color: lightgoldenrodyellow;
+    height : 30px;
+    margin-left : 5px;
+    width : 140px;
+}
+.btn_line2 {
+    display: flex;
+    margin-top: 5px;
+}
+
+

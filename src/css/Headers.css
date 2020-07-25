@@ -1,0 +1,6 @@
+ #container {
+    flex: auto;
+    flex-direction: row;
+    height:40 px;
+
+}

@@ -1,0 +1,44 @@
+.container1 {
+    display : flex;
+    margin-top: 10px;
+    margin-left: 20px;
+    width : 1100px;
+    justify-content: flex-start;
+    background-color: antiquewhite;
+}
+
+.container1 div {
+    height: 40px;
+    margin-left: 60px;
+}
+
+.line {
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.reel_name {
+        padding: 5px;
+}
+
+.reel_num {
+    padding: 5px;
+}
+
+.recipe {
+    padding: 5px;
+}
+
+.lot {
+    padding: 5px;
+}
+
+.heading_text {
+    font-size: 18px;
+    color: blue
+}
+
+.value_text {
+    font-weight: bold;
+    font-size: 18px;
+}
