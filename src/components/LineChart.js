@@ -26,7 +26,14 @@ export default class LineChart extends Component{
                 fontSize : 15
               },
               type : 'time',
-              time : { unit : 'week'}
+              distribution : 'linear',
+              time : {
+                unit: 'second',
+                displayFormats : {
+                  second : 'h:mm:ss'
+                },
+                stepSize : 1
+              }
             }
           ],
           yAxes : [
@@ -40,7 +47,7 @@ export default class LineChart extends Component{
                 fontColor : "black",
                 fontSize : 15
               },
-              ticks : { min : 0}
+              ticks : { min : 0, max: 100}
             },
             {
               id : 'B',
