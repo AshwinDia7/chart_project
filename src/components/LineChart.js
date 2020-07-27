@@ -89,7 +89,29 @@ export default class LineChart extends Component{
           borderColor : "red",
           borderWidth : 1,
           lineTension : 0
-        }  
+        },
+        {
+          label : "Laylength-Threshold",
+          yAxisID : 'A',
+          data : this.props.data.map(d => 90),
+          fill : 'none',
+          backgroundColor : "darkblue",
+          pointRadius : 0,
+          borderColor : "darkblue",
+          borderWidth : 1,
+          lineTension : 0
+        },
+        {
+          label : "Linespeed-Threshold",
+          yAxisID : 'B',
+          data : this.props.data.map(d => 95),
+          fill : 'none',
+          backgroundColor : "darkred",
+          pointRadius : 0,
+          borderColor : "darkred",
+          borderWidth : 1,
+          lineTension : 0
+        },  
       ]
       }
     })
