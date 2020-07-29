@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import {getData} from './utils/data_generator';
+import { getData } from './utils/data_generator';
 import LineChart from './components/LineChart';
 import Header from './components/Header';
 import Header2 from './components/Header2';
@@ -12,47 +12,48 @@ import PlotEnables from './components/PlotEnables';
 import LengthScaling from './components/LengthScaling';
 import LineSpeedScaling from './components/LineSpeedScaling';
 
-class App extends React.Component{
-  constructor(props){
+class App extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      data : getData()
+      data: getData()
     }
   }
-  componentDidMount(){
+  componentDidMount() {
     window.setInterval(() => {
       this.setState({
-        data : getData()
+        data: getData()
       })
-    }, 5000)
+    }, 500)
   }
-  render(){
+  render() {
+    const { time_arr, len_speed_data } = this.state.data;
     return (
-      <div className ="App">
+      <div className="App">
         <Header />
-          <div className = "container">
-            <div className = "app_container1">
-              <Header2 />
-              <div className = "main-chart-wrapper">
-                <LineChart data = {this.state.data[0].data}
-                        title = {this.state.data[0].title}
-                        color = "blue" />
-              </div>
-              <div className = "bottom_tab">
-                <BottomTab />
-              </div>  
+        <div className="container">
+          <div className="app_container1">
+            <Header2 />
+            <div className="main-chart-wrapper">
+              <LineChart time_arr={time_arr}
+                data={len_speed_data}
+                color="blue" />
             </div>
-            <div className="app_container2">
-              <div className = "right_bar">
-                <RightBar />
-                <Status />
-                <PlotEnables />
-                <LengthScaling />
-                <LineSpeedScaling />
-              </div>
-            </div>  
+            <div className="bottom_tab">
+              <BottomTab />
+            </div>
+          </div>
+          <div className="app_container2">
+            <div className="right_bar">
+              <RightBar />
+              <Status />
+              <PlotEnables />
+              <LengthScaling />
+              <LineSpeedScaling />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>  
     )
   }
 }
