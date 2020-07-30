@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { getData } from './utils/data_generator';
+import { getRandomArray } from './utils/data_generator';
 import LineChart from './components/LineChart';
 import Header from './components/Header';
 import Header2 from './components/Header2';
@@ -16,18 +16,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: getData()
+      data: getRandomArray(400)
     }
   }
   componentDidMount() {
     window.setInterval(() => {
       this.setState({
-        data: getData()
+        data: getRandomArray(400)
       })
-    }, 500)
+    }, 1000)
   }
   render() {
-    const { time_arr, len_speed_data } = this.state.data;
+    const { data } = this.state;
     return (
       <div className="App">
         <Header />
@@ -35,8 +35,7 @@ class App extends React.Component {
           <div className="app_container1">
             <Header2 />
             <div className="main-chart-wrapper">
-              <LineChart time_arr={time_arr}
-                data={len_speed_data}
+              <LineChart data={data}
                 color="blue" />
             </div>
             <div className="bottom_tab">

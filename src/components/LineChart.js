@@ -7,14 +7,12 @@ export default class LineChart extends Component {
     this.canvasRef = React.createRef();
   }
   componentDidUpdate() {
-    this.myChart.data.labels = this.props.time_arr;
+    this.myChart.data.labels = this.props.data.map(d => d.time);
     this.myChart.data.datasets[0].data = this.props.data.map(d => d.lay_length_value);
     this.myChart.data.datasets[1].data = this.props.data.map(d => d.line_speed_value);
     this.myChart.update();
   }
   componentDidMount() {
-    const time_arr = this.props.data.map(d => d.time);
-    this.setState({ time_arr: time_arr })
     this.myChart = new Chart(this.canvasRef.current, {
       type: 'line',
       options: {
