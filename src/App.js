@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-import { getData } from './utils/data_generator';
+import {getAPIData} from './utils/api';
 import LineChart from './components/LineChart';
 import Header from './components/Header';
 import Header2 from './components/Header2';
@@ -16,18 +16,26 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: getData()
+      lay_len_arr : [],
+      line_sp_arr : [],
+      time_arr : []
     }
   }
-  componentDidMount() {
-    window.setInterval(() => {
+   async componentDidMount(){
+      var ash = await  getAPIData();
+      console.log(ash)
+      console.log("Now we are in App componenet");
+      console.log('Lay length is ', ash.lay_length_arr);
+      console.log('Line speed is', ash.line_speed_arr);
+      console.log('Time arr is ', ash.time_arr);
       this.setState({
-        data: getData()
+        lay_len_arr : ash.lay_length_arr,
+        line_sp_arr : ash.line_speed_arr,
+        time_arr : AudioScheduledSourceNode.time_arr
       })
-    }, 500)
   }
   render() {
-    const { time_arr, len_speed_data } = this.state.data;
+    const {line_sp_arr , lay_len_arr , time_arr} = this.state;
     return (
       <div className="App">
         <Header />
@@ -36,7 +44,8 @@ class App extends React.Component {
             <Header2 />
             <div className="main-chart-wrapper">
               <LineChart time_arr={time_arr}
-                data={len_speed_data}
+                lay_length = {lay_len_arr}
+                line_speed = {line_sp_arr}
                 color="blue" />
             </div>
             <div className="bottom_tab">
