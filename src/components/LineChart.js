@@ -6,8 +6,21 @@ export default class LineChart extends Component {
     super(props);
     this.canvasRef = React.createRef();
   }
+  componentDidUpdate(){
+    const {time_arr, lay_length, line_speed} = this.props;
+    console.log("This is the line cahrt",lay_length)
+    this.myChart.data.datasets[0].data = lay_length;
+    this.myChart.data.datasets[1].data = line_speed;
+    this.myChart.data.labels = time_arr;
+    this.myChart.data.datasets[2].data = lay_length.map(d => 10.3);
+    this.myChart.data.datasets[3].data = lay_length.map(d => 8);
+    this.myChart.data.datasets[4].data = lay_length.map(d => 10);
+    this.myChart.data.datasets[5].data = lay_length.map(d => 9);
+    this.myChart.update();
+  }
   componentDidMount() {
-    const {time_arr , lay_length , line_speed} = this.props;
+    var {time_arr , lay_length , line_speed} = this.props;
+    console.log('In linchart', lay_length)
     this.myChart = new Chart(this.canvasRef.current, {
       type: 'line',
       options: {
@@ -25,7 +38,7 @@ export default class LineChart extends Component {
                 fontSize: 15
               },
               type: 'time',
-              distribution: 'linear',
+              distribution: "series",
               time: {
                 unit: 'second',
                 displayFormats: {
@@ -46,7 +59,7 @@ export default class LineChart extends Component {
                 fontColor: "black",
                 fontSize: 15
               },
-              ticks: { min: 0, max: 100 }
+              ticks: {  }
             },
             {
               id: 'B',
@@ -59,7 +72,7 @@ export default class LineChart extends Component {
                 fontSize: 15
               },
               ticks: {
-                min: 10
+                
               }
             }
           ]
@@ -83,9 +96,53 @@ export default class LineChart extends Component {
           yAxisID: 'B',
           data: line_speed,
           fill: 'none',
-          backgroundColor: "red",
+          backgroundColor: "black",
           pointRadius: 1,
+          borderColor: "black",
+          borderWidth: 1,
+          lineTension: 0
+        },
+        {
+          label: "Laylength-Maximum-Alert-Threshold",
+          yAxisID: 'A',
+          data: lay_length.map(d => 10.3),
+          fill: 'none',
+          backgroundColor: "red",
+          pointRadius: 0,
           borderColor: "red",
+          borderWidth: 1,
+          lineTension: 0
+        },
+        {
+          label: "Laylength-Minimum-Alert-Threshold",
+          yAxisID: 'A',
+          data: lay_length.map(d => 8),
+          fill: 'none',
+          backgroundColor: "red",
+          pointRadius: 0,
+          borderColor: "red",
+          borderWidth: 1,
+          lineTension: 0
+        },
+        {
+          label: "Laylength-Maximum-Alarm-Threshold",
+          yAxisID: 'A',
+          data: lay_length.map(d => 10),
+          fill: 'none',
+          backgroundColor: "yellow",
+          pointRadius: 0,
+          borderColor: "yellow",
+          borderWidth: 1,
+          lineTension: 0
+        },
+        {
+          label: "Laylength-Minimum-Alarm-Threshold",
+          yAxisID: 'A',
+          data: lay_length.map(d => 9),
+          fill: 'none',
+          backgroundColor: "yellow",
+          pointRadius: 0,
+          borderColor: "yellow",
           borderWidth: 1,
           lineTension: 0
         }

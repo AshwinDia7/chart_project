@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
+import axios from 'axios';
 
-import {getAPIData} from './utils/api';
+//import {getAPIData}  from './utils/api';
 import LineChart from './components/LineChart';
 import Header from './components/Header';
 import Header2 from './components/Header2';
@@ -18,22 +19,44 @@ class App extends React.Component {
     this.state = {
       lay_len_arr : [],
       line_sp_arr : [],
-      time_arr : []
+      time_arr : [],
+      temp : '00000000'
     }
   }
-   async componentDidMount(){
-      var ash = await  getAPIData();
-      console.log(ash)
-      console.log("Now we are in App componenet");
-      console.log('Lay length is ', ash.lay_length_arr);
-      console.log('Line speed is', ash.line_speed_arr);
-      console.log('Time arr is ', ash.time_arr);
-      this.setState({
-        lay_len_arr : ash.lay_length_arr,
-        line_sp_arr : ash.line_speed_arr,
-        time_arr : AudioScheduledSourceNode.time_arr
-      })
+   getData = () => {
+    var  var_temp = this.state.temp;
+    var lay_length_arr = [];
+    var line_speed_arr = [];
+    var time_arr = [];
+    var temp_ms = Date.now();
+   let dayMs = 10;
+   axios.get("http://localhost/web/meas/trend00000000,".concat(var_temp))
+   .then(res_json => {
+   //.then(res_json => {
+       for (var dataobj of res_json.data){
+        //   console.log(dataobj);
+           lay_length_arr.push(dataobj['Len']/1000);
+           line_speed_arr.push(dataobj['Vel']/1000);
+       }
+     for (var i=0; i<lay_length_arr.length; i++){
+         var new_date_ms = new Date(temp_ms + i*dayMs);
+         time_arr.push(new_date_ms)
+     }
+     var last_obj = res_json.data[res_json.data.length -1];
+     var time_l_str = last_obj.TimeL
+     this.setState({
+       lay_len_arr : lay_length_arr,
+       line_sp_arr : line_speed_arr,
+       time_arr : time_arr,
+       temp : time_l_str
+     })
+ })
   }
+   async componentDidMount(){
+    window.setInterval(() => {
+      this.getData()
+    }, 1000)
+}
   render() {
     const {line_sp_arr , lay_len_arr , time_arr} = this.state;
     return (

@@ -1,4 +1,6 @@
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
+import axios from 'axios';
+
 export  async function getAPIData(){
     var lay_length_arr = [];
     var line_speed_arr  = [];
@@ -15,19 +17,20 @@ export  async function getAPIData(){
             'Cache-Control': 'no-cache'
         }
     }
-    return fetch("http://localhost/web/meas/trend00000000,00000000",data)
-    .then(async res => {
-        const r_data = await res.JSON();
-        console.log('This is me', r_data);
-        return r_data
-    })
+ //   axios
+ //   .get("http://localhost/web/meas/trend00000000,00000000")
+ //   .then(res => {
+ //     console.log("some response", res);
+ //   });
+//}
+    axios.get("http://localhost/web/meas/trend00000000,00000000")
     .then(res_json => {
-      console.log(res_json.length);
-      for (const dataobj of res_json){
-          console.log(dataobj);
-        lay_length_arr.push(dataobj['Len']/1000);
-        line_speed_arr.push(dataobj['Vel']/1000);
-      }
+    //.then(res_json => {
+        for (var dataobj of res_json.data){
+         //   console.log(dataobj);
+            lay_length_arr.push(dataobj['Len']/1000);
+            line_speed_arr.push(dataobj['Vel']/1000);
+        }
       for (var i=0; i<lay_length_arr.length; i++){
           var new_date_ms = new Date(temp_ms + i*dayMs);
           time_arr.push(new_date_ms)
@@ -37,6 +40,7 @@ export  async function getAPIData(){
           line_speed_arr : line_speed_arr,
           time_arr : time_arr
       }
+      console.log('Tem Object',temp_obj)
       return temp_obj
     })
     .catch(error => console.log(error))
